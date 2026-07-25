@@ -22,3 +22,4 @@ pnpm-debug.log*
 
 # AI collaboration context (local only)
 .rules
+.zed

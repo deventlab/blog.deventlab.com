@@ -34,24 +34,18 @@ doesn't do.
 
 ## Why build another one?
 
-Fair question. etcd is excellent. TiKV's Raft implementation is impressive. openraft is
-well-designed. We've read all of them carefully.
+Fair question. There are already excellent projects in this space, and we learned a lot from reading their code and documentation.
 
-But we kept running into the same friction points for smaller-scale use cases:
+What we kept running into, especially in smaller-scale use cases, was not a lack of capability — it was the cost of adoption and operation:
 
-- **Operational overhead**: Running etcd in production means dedicated nodes, careful
-  monitoring, and expertise that not every team has.
-- **Embedding complexity**: If you want to embed consensus into your own service, the path
-  from "I want Raft" to "I have Raft running in my binary" is surprisingly long.
-- **Learning curve**: Raft papers are approachable. Production Raft implementations are a
-  different story — layers of optimization obscure the core protocol.
+- **Operational overhead**: Running a separate coordination system often means dedicated nodes, careful monitoring, and more operational knowledge than smaller teams want to carry.
+- **Embedding complexity**: If you want coordination to live inside your own service, the path from “I need Raft” to “I have something I can actually ship” is still quite long.
+- **Learning curve**: Raft itself is understandable, but production implementations often add enough layers that the core protocol becomes harder to see and reason about.
 
-d-engine aims to close that gap. It should be:
+d-engine is our attempt to narrow that gap. Our goals are modest:
 
-- **Cheap to run** — works on small nodes, low memory footprint.
-- **Simple to integrate** — clean API, minimal ceremony to get a cluster running.
-- **Educationally honest** — the code follows the Raft protocol closely so you can read the
-  implementation alongside the paper.
+- **Cheap to run** — lightweight enough for modest setups.
+- **Simple to integrate** — a small API surface and minimal ceremony to get started.
 
 ## What we've built so far
 
@@ -65,21 +59,10 @@ The core Raft implementation is in place:
 We follow established Raft best practices and reference the implementations in etcd, openraft,
 and TiKV wherever their solutions are demonstrably better than ours.
 
-## What's coming
-
-DEventLab is building a family of distributed infrastructure tools. d-engine is the foundation.
-On the roadmap:
-
-- **d-stream** — lightweight event streaming
-- **d-queue** — durable task queuing
-
-Each project shares the same philosophy: production-quality, developer-friendly, and honest
-about complexity.
-
 ## Follow along
 
 This blog is where we'll document the engineering decisions behind these projects — not just
-what we built, but *why*, what we tried first, and where we got it wrong.
+what we built, but _why_, what we tried first, and where we got it wrong.
 
 If distributed systems, Rust, and consensus protocols are your kind of thing:
 
