@@ -45,51 +45,7 @@ Your application _is_ a Raft node. Coordination stops being an external dependen
 
 The diagram below shows the layers a developer actually touches: `EmbeddedClient` on top, the d-engine core in the middle, storage and consensus underneath. Strongly consistent reads/writes and weakly consistent fast reads take different paths — that's one of the key points in the development experience.
 
-```text
-┌─────────────────────────────────────────────────────────────┐
-│                      Your distributed app                    │
-│                                                               │
-│   DefaultEmbeddedEngine::start("./data").await?              │
-│   EmbeddedEngine::start_node(config, storage, sm).await?     │
-│                                                               │
-│              ↓  engine.client()                              │
-│                                                               │
-│   ┌─────────────────────────────────────────────────────┐    │
-│   │            EmbeddedClient  (Arc, Clone-able)          │    │
-│   │                                                       │    │
-│   │  Write: put()  delete()  compare_and_swap()          │    │
-│   │  Read:  get_eventual()  get_lease()  get_linearizable()│    │
-│   │  Other: scan_prefix()  watch()  list_members()        │    │
-│   └──────────┬──────────────────────┬────────────────────┘    │
-│              │                      │                         │
-│      Strong read/write        Fast weak read                  │
-│      (via Raft consensus)     (local read, no round trip)     │
-└─────────────────────────────────────────────────────────────┘
-               │                      │
-               ▼                      ▼
-┌─────────────────────────────────────────────────────────────┐
-│                   d-engine core  (black box)                  │
-│                                                                │
-│   ┌──────────────────────┐   ┌──────────────────────────┐    │
-│   │  Raft consensus engine│   │  Local state machine      │    │
-│   │  · election / heartbeat│  │  (pluggable)              │    │
-│   │  · log replication    │   │  · RocksDB (default)      │    │
-│   │  · membership changes │   │  · File                   │    │
-│   │                        │   │  · custom implementation  │    │
-│   └──────────────────────┘   └──────────────────────────┘    │
-│                                                                │
-│   ┌──────────────────────────────────────────────────────┐    │
-│   │  WAL storage engine (pluggable)                        │    │
-│   │  · RocksDB (default) / File / custom                   │    │
-│   └──────────────────────────────────────────────────────┘    │
-│                                                                │
-│                 ↕  gRPC (managed automatically)                │
-└─────────────────────────────────────────────────────────────┘
-               ↕                      ↕
-        ┌──────────────┐     ┌──────────────┐
-        │   Peer Node 2│     │   Peer Node 3│
-        └──────────────┘     └──────────────┘
-```
+![d-engine embedded architecture: EmbeddedClient sits above the d-engine core (Raft consensus engine, pluggable state machine, pluggable WAL storage), which replicates over gRPC to peer nodes](../../../assets/d-engine-architecture.jpg)
 
 ## Starting with a single node
 
