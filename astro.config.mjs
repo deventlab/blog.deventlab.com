@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import starlightBlog from "starlight-blog";
+import starlightLlmsTxt from "starlight-llms-txt";
 
 export default defineConfig({
   site: "https://blog.deventlab.com",
@@ -35,6 +36,7 @@ export default defineConfig({
           postCount: 10,
           recentPostCount: 5,
         }),
+        starlightLlmsTxt(),
       ],
       customCss: ["./src/styles/brand.css"],
       sidebar: [],
