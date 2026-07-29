@@ -19,6 +19,19 @@ export default defineConfig({
           href: "https://github.com/deventlab",
         },
       ],
+      components: {
+        Footer: "./src/components/Footer.astro",
+      },
+      head: [
+        {
+          tag: "script",
+          attrs: {
+            type: "module",
+            src: "https://static.cloudflareinsights.com/beacon.min.js",
+            "data-cf-beacon": '{"token": "bf165cb3d05648eaa1c315208f1e4c18"}',
+          },
+        },
+      ],
       plugins: [
         starlightBlog({
           title: "Blog",
