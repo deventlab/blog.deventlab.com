@@ -32,7 +32,7 @@ It is also trying to answer a question: can [d-engine](https://github.com/devent
 
 ## Architecture
 
-![d-lmdb embedded architecture: the application uses d-lmdb, where writes go through the d-engine Raft layer and are replicated to peers, while reads directly access the local LMDB instance; LMDB is used for both the state machine and the Raft WAL](../../../assets/d-lmdb-architecture.png)
+![d-lmdb embedded architecture: the application uses d-lmdb, where writes go through the d-engine Raft layer and are replicated to peers, while reads directly access the local LMDB instance; LMDB is used for both the state machine and the Raft WAL](../../assets/d-lmdb-architecture.png)
 
 ---
 

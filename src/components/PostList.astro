@@ -1,0 +1,41 @@
+---
+import PostMeta from "./PostMeta.astro";
+import { postUrl, type Post } from "../lib/posts";
+
+interface Props {
+  posts: Post[];
+  featured?: boolean;
+}
+const { posts, featured = false } = Astro.props;
+const [first, ...rest] = posts;
+---
+
+{featured && first && (
+  <article class="feature">
+    <PostMeta post={first} />
+    <h2><a href={postUrl(first)}>{first.data.title}</a></h2>
+    <p class="excerpt">{first.data.excerpt}</p>
+    <a class="read" href={postUrl(first)}>Read the article →</a>
+  </article>
+)}
+<div class="list">
+  {(featured ? rest : posts).map((p) => (
+    <article class="item">
+      <PostMeta post={p} showTags={false} />
+      <h3><a href={postUrl(p)}>{p.data.title}</a></h3>
+      <p class="excerpt">{p.data.excerpt}</p>
+    </article>
+  ))}
+</div>
+
+<style>
+  .feature { background: var(--dl-white); border: 1px solid var(--dl-primary); border-radius: 14px; padding: 40px; margin-bottom: 40px; }
+  .feature h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .feature h2 a, .item h3 a { color: var(--dl-primary); text-decoration: none; }
+  .excerpt { color: var(--dl-muted); margin: 0 0 16px; max-width: 720px; font-size: 1.05rem; }
+  .read { font-weight: 600; text-decoration: none; }
+  .list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .item { background: var(--dl-white); border: 1px solid var(--dl-border); border-radius: 14px; padding: 24px; }
+  .item h3 { margin: 0 0 10px; font-size: 1.2rem; line-height: 1.25; }
+  .item .excerpt { font-size: 0.95rem; margin: 0; }
+</style>

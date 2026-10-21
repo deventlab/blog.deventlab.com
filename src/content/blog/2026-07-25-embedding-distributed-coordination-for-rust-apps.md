@@ -45,7 +45,7 @@ Your application _is_ a Raft node. Coordination stops being an external dependen
 
 The diagram below shows the layers a developer actually touches: `EmbeddedClient` on top, the d-engine core in the middle, storage and consensus underneath. Strongly consistent reads/writes and weakly consistent fast reads take different paths — that's one of the key points in the development experience.
 
-![d-engine embedded architecture: EmbeddedClient sits above the d-engine core (Raft consensus engine, pluggable state machine, pluggable WAL storage), which replicates over gRPC to peer nodes](../../../assets/d-engine-architecture.jpg)
+![d-engine embedded architecture: EmbeddedClient sits above the d-engine core (Raft consensus engine, pluggable state machine, pluggable WAL storage), which replicates over gRPC to peer nodes](../../assets/d-engine-architecture.jpg)
 
 ## Starting with a single node
 

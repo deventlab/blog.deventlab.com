@@ -1,0 +1,29 @@
+---
+import { formatDate, readingMinutes, authorName, tagUrl, type Post } from "../lib/posts";
+
+interface Props {
+  post: Post;
+  showTags?: boolean;
+}
+const { post, showTags = true } = Astro.props;
+---
+
+<p class="meta">
+  <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+  <span>·</span>
+  <span>{readingMinutes(post.body)} min read</span>
+  <span>·</span>
+  <span>{post.data.authors.map(authorName).join(", ")}</span>
+</p>
+{showTags && (
+  <p class="tags">
+    {post.data.tags.map((t) => <a href={tagUrl(t)}>{t}</a>)}
+  </p>
+)}
+
+<style>
+  .meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 10px; color: var(--dl-muted); font-size: 0.9rem; }
+  .tags { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 18px; }
+  .tags a { font-size: 0.8rem; color: var(--dl-muted); border: 1px solid var(--dl-border); border-radius: 999px; padding: 2px 10px; text-decoration: none; background: var(--dl-white); }
+  .tags a:hover { color: var(--dl-primary); border-color: var(--dl-primary); }
+</style>

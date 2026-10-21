@@ -1,0 +1,11 @@
+:root {
+  --dl-primary: #1b2a4a;
+  --dl-accent: #d23c34;
+  --dl-ink: #1f2430;
+  --dl-ground: #f6f7f9;
+  --dl-white: #ffffff;
+  --dl-muted: #5b6475;
+  --dl-border: #dde1e8;
+  --dl-font: "Space Grotesk Variable", system-ui, -apple-system, sans-serif;
+  --dl-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}

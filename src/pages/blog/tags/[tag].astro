@@ -1,0 +1,31 @@
+---
+import Base from "../../../layouts/Base.astro";
+import PostList from "../../../components/PostList.astro";
+import { getPosts } from "../../../lib/posts";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = [...new Set(posts.flatMap((p) => p.data.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag, posts: posts.filter((p) => p.data.tags.includes(tag)) },
+  }));
+}
+const { tag, posts } = Astro.props;
+---
+
+<Base title={`${tag} · deventlab blog`} description={`Posts tagged ${tag}.`}>
+  <main class="wrap">
+    <section class="hero">
+      <p class="kicker"><a href="/">All posts</a></p>
+      <h1>{tag}</h1>
+    </section>
+    <PostList posts={posts} />
+  </main>
+</Base>
+
+<style>
+  .hero { padding: 72px 0 40px; }
+  .kicker { margin: 0 0 8px; font-size: 0.9rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3rem); margin: 0; color: var(--dl-primary); letter-spacing: -0.02em; }
+</style>

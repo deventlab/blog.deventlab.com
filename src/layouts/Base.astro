@@ -1,0 +1,101 @@
+---
+import "@fontsource-variable/space-grotesk";
+import "../styles/tokens.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="alternate" type="application/rss+xml" title="deventlab blog" href="/blog/rss.xml" />
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "bf165cb3d05648eaa1c315208f1e4c18"}'></script>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <div class="brand">
+          <a class="product" href="/"><img class="logo" src="/logo.svg" width="32" height="32" alt="" />blog</a>
+          <a class="by" href="https://www.deventlab.com">by deventlab</a>
+        </div>
+        <nav>
+          <a href="https://www.deventlab.com">About</a>
+          <a href="/blog/rss.xml">RSS</a>
+          <a class="gh" href="https://github.com/deventlab" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 16 16" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          </a>
+        </nav>
+      </div>
+    </header>
+    <slot />
+    <footer class="footer">
+      <div class="wrap">
+        <div class="cols">
+          <div>
+            <h4>Products</h4>
+            <a href="https://d-engine.deventlab.com">d-engine</a>
+            <a href="https://github.com/deventlab/d-lmdb">d-lmdb (experimental)</a>
+            <a href="https://www.deventlab.com/#products">All products</a>
+          </div>
+          <div>
+            <h4>Learn</h4>
+            <a href="/">Blog</a>
+            <a href="https://github.com/deventlab">GitHub</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <span>Work with us: custom work and consulting<br /><a href="mailto:contact@deventlab.com">contact@deventlab.com</a></span>
+          </div>
+        </div>
+        <p class="copy">© deventlab · distributed systems, simply</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--dl-font);
+    color: var(--dl-ink);
+    background: var(--dl-ground);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--dl-primary); }
+  code, pre { font-family: var(--dl-font-mono); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+  .nav { border-bottom: 1px solid var(--dl-border); background: var(--dl-white); }
+  .nav-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; height: 64px; }
+  .nav nav { display: flex; gap: 20px; align-items: center; }
+  .nav nav a { color: var(--dl-muted); text-decoration: none; font-size: 0.95rem; }
+  .nav nav a:hover { color: var(--dl-primary); }
+  .nav nav a.gh { display: flex; color: var(--dl-ink); }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .product { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; color: var(--dl-ink); text-decoration: none; }
+  .by { color: var(--dl-muted); font-size: 0.8rem; text-decoration: none; }
+  .by:hover { color: var(--dl-primary); }
+  .logo { display: block; }
+
+  .footer { margin-top: 96px; padding: 40px 0 28px; font-size: 0.92rem; border-top: 1px solid var(--dl-border); background: var(--dl-white); }
+  .footer .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+  .footer h4 { margin: 0 0 12px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--dl-muted); }
+  .footer .cols a, .footer .cols span { display: block; margin-bottom: 8px; color: var(--dl-ink); text-decoration: none; }
+  .footer .cols span { color: var(--dl-muted); }
+  .footer .cols span a { display: inline; color: var(--dl-primary); }
+  .footer .cols a:hover { color: var(--dl-primary); }
+  .footer .copy { margin: 32px 0 0; padding-top: 20px; border-top: 1px solid var(--dl-border); color: var(--dl-muted); font-size: 0.85rem; }
+</style>

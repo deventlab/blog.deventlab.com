@@ -2,6 +2,11 @@
   "name": "deventlab-blog",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -10,10 +15,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.39.2",
-    "astro": "^6.3.1",
-    "sharp": "^0.34.5",
-    "starlight-blog": "^0.26.1",
-    "starlight-llms-txt": "^0.10.0"
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource-variable/space-grotesk": "^5.3.0",
+    "astro": "^7.4.2",
+    "sharp": "^0.35.5"
   }
 }
