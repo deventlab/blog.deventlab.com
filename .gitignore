@@ -23,3 +23,6 @@ pnpm-debug.log*
 # AI collaboration context (local only)
 .rules
 .zed
+
+# AI collaboration context (local only)
+CLAUDE.md
