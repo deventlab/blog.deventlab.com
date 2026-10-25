@@ -17,7 +17,7 @@ tags:
 
 ## Want
 
-To explain where d-engine really came from, I have to go back four or five years — to before d-engine itself existed.
+To explain where [d-engine](https://github.com/deventlab/d-engine) really came from, I have to go back four or five years — to before d-engine itself existed.
 
 The first time I came across Kafka — especially Kafka Streams and Kafka Connect — I got hooked on event streaming platforms: pulling data in different formats together and aggregating it solved a lot of real business problems. An event is an abstraction of the real world: something that has already happened, a plain fact. That idea of "event" goes back, in my memory, to reading how Martin Fowler talks about [event-driven architecture](https://martinfowler.com/articles/201701-event-driven.html). But actually standing up and running a real Kafka cluster eats up a lot of hardware and a lot of your ops team's time — and using Confluent, the commercial version, is expensive for SMEs (small and medium-sized businesses). My impression at the time was that it was billed by the hour.
 
