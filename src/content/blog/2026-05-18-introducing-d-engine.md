@@ -2,8 +2,8 @@
 title: "Introducing d-engine: Distributed Coordination Without the Complexity"
 date: 2026-05-18
 excerpt: >
-  We built d-engine because distributed coordination should be accessible — cheap to run, simple to
-  use, and honest about its trade-offs. This post explains why, and what we're building.
+  I built d-engine because distributed coordination should be accessible — cheap to run, simple to
+  use, and honest about its trade-offs. This post explains why, and what I'm building.
 authors:
   - joshua
 tags:
@@ -20,7 +20,7 @@ management, or service discovery — at some point you reach for a tool like etc
 They work. They're battle-tested. But they also come with a price: operational complexity,
 resource overhead, and an assumption that you have a dedicated team to keep them healthy.
 
-We built [d-engine](https://github.com/deventlab/d-engine) to challenge that assumption.
+I built [d-engine](https://github.com/deventlab/d-engine) to challenge that assumption.
 
 ## What is d-engine?
 
@@ -34,20 +34,20 @@ doesn't do.
 
 ## Why build another one?
 
-Fair question. There are already excellent projects in this space, and we learned a lot from reading their code and documentation.
+Fair question. There are already excellent projects in this space, and I learned a lot from reading their code and documentation.
 
-What we kept running into, especially in smaller-scale use cases, was not a lack of capability — it was the cost of adoption and operation:
+What I kept running into, especially in smaller-scale use cases, was not a lack of capability — it was the cost of adoption and operation:
 
 - **Operational overhead**: Running a separate coordination system often means dedicated nodes, careful monitoring, and more operational knowledge than smaller teams want to carry.
 - **Embedding complexity**: If you want coordination to live inside your own service, the path from “I need Raft” to “I have something I can actually ship” is still quite long.
 - **Learning curve**: Raft itself is understandable, but production implementations often add enough layers that the core protocol becomes harder to see and reason about.
 
-d-engine is our attempt to narrow that gap. Our goals are modest:
+d-engine is my attempt to narrow that gap. My goals are modest:
 
 - **Cheap to run** — lightweight enough for modest setups.
 - **Simple to integrate** — a small API surface and minimal ceremony to get started.
 
-## What we've built so far
+## What I've built so far
 
 The core Raft implementation is in place:
 
@@ -56,17 +56,17 @@ The core Raft implementation is in place:
 - Membership changes
 - A key-value store on top as the reference application
 
-We follow established Raft best practices and reference the implementations in etcd, openraft,
-and TiKV wherever their solutions are demonstrably better than ours.
+I follow established Raft best practices and reference the implementations in etcd, openraft,
+and TiKV wherever their solutions are demonstrably better than mine.
 
 ## Follow along
 
-This blog is where we'll document the engineering decisions behind these projects — not just
-what we built, but _why_, what we tried first, and where we got it wrong.
+This blog is where I'll document the engineering decisions behind d-engine — not just
+what I built, but _why_, what I tried first, and where I got it wrong.
 
 If distributed systems, Rust, and consensus protocols are your kind of thing:
 
 - [GitHub: deventlab/d-engine](https://github.com/deventlab/d-engine)
 - [GitHub: deventlab](https://github.com/deventlab)
 
-We're building in the open. Feedback and contributions are welcome.
+I'm building in the open. Feedback and contributions are welcome.
