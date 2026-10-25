@@ -2,7 +2,7 @@
 title: "d-engine Dev Notes (Part 1): The Hard Parts of Software Development"
 date: 2026-10-25
 excerpt: >
-  Why I started d-engine, and three lessons from building it: wanting has a cost, follow the flow, and make complexity visible
+  Why I started d-engine, and three lessons from building it: wanting has a cost, follow the flow, and make complexity visible.
 authors:
   - joshua
 tags:
@@ -27,15 +27,15 @@ My own background has always been tied to messaging — I built an XMPP-based �
 
 Before deciding to implement Raft myself, I looked at alternatives — TiKV, for example — but they all assumed a standalone cluster, and standing one up was just as expensive. That wasn't what I wanted. So after a while, I decided to start by implementing the Raft protocol myself. The hardest part wasn’t writing the code — it was proving the implementation actually matched the Raft paper, that it was correct, not just that it ran. So I spent a few months learning TLA+. TLA+ isn’t a programming language at all — it’s a formal specification language: you use math to abstract Raft's components and how they behave, then use a model checker to explore the reachable states of that model, verifying that things like leader election still hold up under concurrent events — within the bounded state space you define, not an exhaustive proof over every possible case. It's a white-box method, and later on I paired it with Jepsen, which tests the same kind of thing from the outside, as a black box.
 
-I loved and respected [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)'s style (he's the author of [Paxos](<https://en.wikipedia.org/wiki/Paxos_(computer_science)>)); he has [free TLA+ training videos online](https://lamport.azurewebsites.net/video/videos.html). What I loved just as much was how he taught — every lecture filmed in a different natural setting, and he kept changing his outfit. Small things, but they made it feel fresh, almost fun, and pulled me into something that's genuinely dry material. I watched every single lecture. A few months later I had a model-checked design for d-engine’s Raft core, and only then did I start actually coding.
+I respected [Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport), the author of [Paxos](<https://en.wikipedia.org/wiki/Paxos_(computer_science)>). He hosts [The TLA+ Video Course](https://lamport.azurewebsites.net/video/videos.html). What drew me in was how he taught — every lecture filmed in a different natural setting, and he kept changing his outfit. Small things, but they gave a dry subject some warmth and wonder, and I found myself looking forward to the next lecture every time. A few months later I had a model-checked design for d-engine’s Raft core, and only then did I start actually coding.
 
-I guess what I’m trying to say is: wanting to do something always has a cost. And paying that cost is exactly how you find out how real your interest actually was.
+I guess what I’m trying to say is: **wanting** to do something always has a cost. And paying that cost is exactly how you find out how real your interest actually was.
 
 ---
 
 ## Follow Nature
 
-If I had to point at one idea that quietly shapes most of d-engine's architecture, it's this: in nature, the things that go with the flow — that work with nature's own rules instead of fighting them — take the least energy. I've felt this pattern again and again, and it's the same principle d-engine's architecture tries to follow.
+If I had to point at one idea that quietly shapes most of d-engine's architecture, it's this: in nature, the things that go with the **flow** — that work with nature's own rules instead of fighting them — take the least energy. I've felt this pattern again and again, and it's the same principle d-engine's architecture tries to follow.
 
 A good example is how d-engine drains its inbound event channel. I was stuck on a performance problem, and the moment I saw this pattern in the open-source world, I knew it was the answer — because I already carried an old story with me: [Li Bing and the Dujiangyan irrigation project](https://en.wikipedia.org/wiki/Dujiangyan_Irrigation_System). He didn't try to tame the flood by damming it; he worked with the flow instead, channeling it. Draining the channel follows the same idea: instead of pulling one event at a time, or blocking until a batch is "full," just drain whatever is sitting in the channel right now, up to a cap:
 
@@ -60,7 +60,7 @@ async fn drain_inbound_events(&mut self) -> Result<()> {
 }
 ```
 
-`try_recv` never blocks — it just grabs what's already there. So when traffic is quiet, this loop exits almost instantly with a small batch. When traffic spikes, it keeps pulling, up to `max_batch_size`, and the batch naturally grows. Nothing is throttled; the batch is simply capped at max_batch_size, growing and shrinking with the flood.
+`try_recv` never blocks — it just grabs what's already there. So when traffic is quiet, this loop exits almost instantly with a small batch. When traffic spikes, it keeps pulling, up to `max_batch_size`, and the batch naturally grows. Nothing is throttled; the batch is simply capped at `max_batch_size`, growing and shrinking with the flood.
 
 ---
 
