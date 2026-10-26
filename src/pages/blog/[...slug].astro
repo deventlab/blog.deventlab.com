@@ -26,17 +26,19 @@ const { Content } = await render(post);
 </Base>
 
 <style>
+  :global(html body) { background: var(--dl-white); }
+  .post, .comments { --dl-border: #e5e5e5; }
   .post { max-width: 760px; margin: 0 auto; padding-top: 56px; }
   .back { margin: 0 0 24px; font-size: 0.9rem; }
-  h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.15; margin: 0 0 16px; color: var(--dl-primary); letter-spacing: -0.02em; }
+  h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); line-height: 1.15; margin: 0 0 16px; color: #37352f; letter-spacing: -0.02em; }
   .comments { max-width: 760px; margin: 56px auto 0; }
 
-  .prose { margin-top: 32px; font-size: 1.125rem; }
-  .prose :global(h2) { font-size: 1.6rem; margin: 2.4em 0 0.6em; color: var(--dl-primary); letter-spacing: -0.01em; }
-  .prose :global(h3) { font-size: 1.2rem; margin: 2em 0 0.5em; }
-  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 1.1em; }
-  .prose :global(li) { margin-bottom: 0.35em; }
-  .prose :global(a) { text-underline-offset: 3px; }
+  .prose { margin-top: 32px; font-size: 1.125rem; color: #37352f; }
+  .prose :global(h2) { font-size: 1.6rem; margin: 3rem 0 1rem; color: #37352f; letter-spacing: -0.01em; }
+  .prose :global(h3) { font-size: 1.2rem; margin: 2rem 0 0.75rem; }
+  .prose :global(p), .prose :global(ul), .prose :global(ol) { margin: 0 0 1.5rem; }
+  .prose :global(li) { margin-bottom: 0.5rem; }
+  .prose :global(a) { color: var(--dl-link); text-underline-offset: 3px; }
   .prose :global(img) { max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--dl-border); }
   .prose :global(blockquote) { margin: 1.4em 0; padding: 4px 20px; border-left: 3px solid var(--dl-primary); color: var(--dl-muted); }
   .prose :global(hr) { border: 0; border-top: 1px solid var(--dl-border); margin: 2.4em 0; }

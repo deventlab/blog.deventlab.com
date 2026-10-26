@@ -6,7 +6,7 @@
   --dl-white: #ffffff;
   --dl-muted: #5b6475;
   --dl-border: #dde1e8;
-  --dl-font: "Inter Variable", system-ui, -apple-system, sans-serif;
-  --dl-font-display: "Space Grotesk Variable", system-ui, -apple-system, sans-serif;
+  --dl-link: #3b49df;
+  --dl-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --dl-font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
