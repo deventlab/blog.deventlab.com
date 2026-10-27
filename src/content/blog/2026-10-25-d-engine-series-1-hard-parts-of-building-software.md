@@ -74,7 +74,7 @@ AI is being used more and more these days, and I've tested this myself: hand a p
 
 _A diagnostic screenshot: 3 nodes and the load generator on one 8-core machine, data on a RAM disk. It shows where one write spends its time, not a benchmark result._
 
-This kind of work pays off many times over. I can stare at this chart for an hour, sometimes for days in a row. It keeps my mind working on the problem. This is the view that grounds me — it's how I actually figure out what to fix next.
+This kind of work pays off many times over — just stare at this chart for a while, let your mind drift, and ideas start popping into your head on their own. This is the view that grounds me; it’s how I actually figure out what to fix next.
 
 ## Closing Thoughts
 
